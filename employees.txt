@@ -1,0 +1,6 @@
+ani,2,dev,10000
+sani,3,qa,30000
+rani,5,dev,30000
+dd,5,ff,55000
+rryty,66,hghf,33000
+dfdf,6,dde,23000
