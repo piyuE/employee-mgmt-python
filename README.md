@@ -7,6 +7,7 @@ Allows adding and viewing employee records.
 ## Features
 - Add employee
 - View employee list
+- Search employee by name
 - File-based storage
 - OOP design
 
