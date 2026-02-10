@@ -1,3 +1,23 @@
+def get_valid_salary():
+    while True:
+        try:
+            salary = int(input("Enter salary: "))
+            if salary <= 0:
+                print("Salary must be positive")
+            else:
+                return salary
+        except ValueError:
+            print("Please enter a valid number")
+
+
+def get_non_empty_input(message):
+    while True:
+        value = input(message).strip()
+        if value:
+            return value
+        else:
+            print("Input cannot be empty")
+
 class Employee:
     def __init__(self, name,experience, role, salary):
         self.name = name
@@ -25,10 +45,10 @@ class EmployeeManager:
         print(" 4. Exit")
 
     def add_employee(self):
-        name = input("Enter the employee name : ")
-        experience = input("Enter years of experience: ")
-        role = input("Enter preferred role: ")
-        salary = int(input("Enter the expected salary :"))
+        name = get_non_empty_input("Enter name: ")
+        role = get_non_empty_input("Enter role: ")
+        experience = get_non_empty_input("Enter Experience: ")
+        salary = get_valid_salary()
 
         emp = Employee(name,experience, role, salary)
 
@@ -38,7 +58,7 @@ class EmployeeManager:
         print("Employee added")
 
     def search_employee(self):
-        name_to_search = input("Enter name to search: ")
+        name_to_search = get_non_empty_input("Enter name to search: ")
 
         try:
             with open("employees.txt", "r") as f:
@@ -52,11 +72,13 @@ class EmployeeManager:
             print("No records found")
 
     def display_employees(self):
-        with open("employees.txt","r") as emp:
-            for em in emp:
-                name, experience, role, salary = em.strip().split(",")
-                print("Name:", name, "| Experience:", experience,"| Role:", role, "| Salary:", salary)
-
+        try:
+            with open("employees.txt","r") as emp:
+                for em in emp:
+                    name, experience, role, salary = em.strip().split(",")
+                    print("Name:", name, "| Experience:", experience,"| Role:", role, "| Salary:", salary)
+        except FileNotFoundError:
+            print("No employee records found")
     def select_option(self,option):
         match option:
             case 1:
