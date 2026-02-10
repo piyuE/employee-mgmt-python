@@ -21,7 +21,8 @@ class EmployeeManager:
     def portal_info(self):
         print(" 1. Add employee")
         print(" 2. Display all the employees")
-        print(" 3. Exit")
+        print(" 3. Search employee")
+        print(" 4. Exit")
 
     def add_employee(self):
         name = input("Enter the employee name : ")
@@ -35,6 +36,20 @@ class EmployeeManager:
             f.write(emp.to_file())
 
         print("Employee added")
+
+    def search_employee(self):
+        name_to_search = input("Enter name to search: ")
+
+        try:
+            with open("employees.txt", "r") as f:
+                for em in f:
+                    name, experience, role, salary = em.strip().split(",")
+                    if name.lower() == name_to_search.lower():
+                        print("Name:", name, "| Experience:", experience,"| Role:", role, "| Salary:", salary)
+                        return
+            print("Employee not found")
+        except FileNotFoundError:
+            print("No records found")
 
     def display_employees(self):
         with open("employees.txt","r") as emp:
@@ -50,6 +65,9 @@ class EmployeeManager:
             case 2:
                 self.display_employees()
                 return "Employees displayed"
+            case 3:
+                self.search_employee()
+                return "Employee Searched"
             case _:
                 print("Exiting system")
                 return False
